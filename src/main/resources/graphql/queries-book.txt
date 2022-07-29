@@ -1,0 +1,45 @@
+#Get all books
+query {
+  allBooks {
+    title
+    pages
+    rating {
+      star
+    }
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+
+#Get book by ID
+query {
+  findBook(id: 1) {
+    title
+    pages
+    rating {
+      star
+    }
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+
+#Create Book
+mutation createBook($input: BookInput!) {
+  createBook(data: $input) {
+    id
+    title
+    pages
+  }
+}
+{
+  "input": {
+    "title": "Titulo test",
+    "pages": 124,
+    "authorId": 1
+  }
+}

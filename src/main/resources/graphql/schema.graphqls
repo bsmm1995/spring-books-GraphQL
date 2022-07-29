@@ -18,10 +18,30 @@ type Author {
     books: [Book]
 }
 
+input AuthorInput {
+    firstName: String
+    lastName: String
+}
+
+input BookInput {
+    title: String
+    pages: Int
+    authorId: Int
+}
+
 type Query {
     allBooks: [Book]
     findBook(id: ID!): Book
     allAuthors: [Author]
     findAuthor(id: ID!): Author
     findAuthorByName(firstName: String!): Author
+}
+
+type Mutation {
+    createAuthor(data: AuthorInput): Author
+    updateAuthor(id: ID!, data: AuthorInput): Author
+    deleteAuthor(id: ID!): Int
+    createBook(data: BookInput): Book
+    updateBook(id: ID!, data: BookInput): Book
+    deleteBook(id: ID!): Int
 }

@@ -1,33 +1,3 @@
-#Get all books
-query {
-  allBooks {
-    title
-    pages
-    rating {
-      star
-    }
-    author {
-      firstName
-      lastName
-    }
-  }
-}
-
-#Get book by ID
-query {
-  findOne(id: 1) {
-    title
-    pages
-    rating {
-      star
-    }
-    author {
-      firstName
-      lastName
-    }
-  }
-}
-
 #Get all Authors
 query {
   allAuthors {
@@ -79,5 +49,20 @@ query {
         star
       }
     }
+  }
+}
+
+#Create Author
+mutation create($input: AuthorInput!) {
+  createAuthor(data: $input) {
+    id
+    firstName
+    lastName
+  }
+}
+{
+  "input": {
+    "firstName": "Bladimir",
+    "lastName": "Minga"
   }
 }

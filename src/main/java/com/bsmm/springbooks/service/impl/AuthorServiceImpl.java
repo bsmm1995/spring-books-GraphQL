@@ -1,43 +1,69 @@
 package com.bsmm.springbooks.service.impl;
 
-import com.bsmm.springbooks.domain.Author;
+import com.bsmm.springbooks.domain.dto.Author;
+import com.bsmm.springbooks.domain.dto.AuthorInput;
+import com.bsmm.springbooks.domain.entities.AuthorEntity;
+import com.bsmm.springbooks.exceptions.NotFoundException;
+import com.bsmm.springbooks.repository.AuthorRepository;
 import com.bsmm.springbooks.service.AuthorService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-
-    private final List<Author> authors = new ArrayList<>();
+    private final AuthorRepository authorRepository;
+    private final ModelMapper mapper;
 
     @Override
     public List<Author> getAll() {
-        return authors;
+        return authorRepository.findAll().stream().map(this::toDto).toList();
     }
 
     @Override
     public Author getById(int id) {
-        return authors.stream()
-                .filter(author -> author.id() == id)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Author not found"));
+        return toDto(getEntityById(id));
+    }
+
+    @Override
+    @Transactional
+    public Author create(AuthorInput data) {
+        return toDto(this.authorRepository.save(mapper.map(data, AuthorEntity.class)));
+    }
+
+    @Override
+    public Author update(int id, AuthorInput data) {
+        AuthorEntity entity = getEntityById(id);
+        entity.setFirstName(data.getFirstName());
+        entity.setLastName(data.getLastName());
+        return toDto(this.authorRepository.save(entity));
+    }
+
+    @Override
+    public int deleteById(int id) {
+        this.authorRepository.deleteById(id);
+        return id;
     }
 
     @Override
     public Author getByName(String name) {
-        return authors.stream()
-                .filter(author -> author.fullName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Author not found"));
+        Optional<AuthorEntity> optional = this.authorRepository.findByFirstName(name);
+        if (optional.isEmpty()) {
+            throw new NotFoundException("Author not found");
+        }
+        return toDto(optional.get());
     }
 
-    @PostConstruct
-    private void init() {
-        authors.add(new Author(1, "Josh", "Long"));
-        authors.add(new Author(2, "Mark", "Heckler"));
-        authors.add(new Author(3, "Greg", "Turnquist"));
+    private AuthorEntity getEntityById(int id) {
+        return this.authorRepository.findById(id).orElseThrow(() -> new NotFoundException("Author not found"));
+    }
+
+    private Author toDto(AuthorEntity entity) {
+        return mapper.map(entity, Author.class);
     }
 }

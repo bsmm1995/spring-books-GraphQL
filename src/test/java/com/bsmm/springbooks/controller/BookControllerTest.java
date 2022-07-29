@@ -1,8 +1,8 @@
 package com.bsmm.springbooks.controller;
 
-import com.bsmm.springbooks.domain.Author;
-import com.bsmm.springbooks.domain.Book;
-import com.bsmm.springbooks.domain.Rating;
+import com.bsmm.springbooks.domain.dto.Author;
+import com.bsmm.springbooks.domain.dto.Book;
+import com.bsmm.springbooks.domain.enums.Rating;
 import com.bsmm.springbooks.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

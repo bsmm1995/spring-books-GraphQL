@@ -8,10 +8,7 @@ query {
       id
       title
       pages
-      rating{
-        rating
-        star
-      }
+      rating
     }
   }
 }
@@ -26,10 +23,7 @@ query {
       id
       title
       pages
-      rating{
-        rating
-        star
-      }
+      rating
     }
   }
 }
@@ -44,10 +38,7 @@ query {
       id
       title
       pages
-      rating{
-        rating
-        star
-      }
+      rating
     }
   }
 }
@@ -65,4 +56,9 @@ mutation create($input: AuthorInput!) {
     "firstName": "Bladimir",
     "lastName": "Minga"
   }
+}
+
+#Delete an Author
+mutation DeleteAuthor {
+  deleteAuthor(id: 2)
 }

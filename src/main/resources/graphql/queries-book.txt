@@ -3,9 +3,7 @@ query {
   allBooks {
     title
     pages
-    rating {
-      star
-    }
+    rating
     author {
       firstName
       lastName
@@ -18,9 +16,7 @@ query {
   findBook(id: 1) {
     title
     pages
-    rating {
-      star
-    }
+    rating
     author {
       firstName
       lastName
@@ -29,7 +25,7 @@ query {
 }
 
 #Create Book
-mutation createBook($input: BookInput!) {
+mutation create($input: BookInput!) {
   createBook(data: $input) {
     id
     title
@@ -42,4 +38,9 @@ mutation createBook($input: BookInput!) {
     "pages": 124,
     "authorId": 1
   }
+}
+
+#Delete a book
+mutation DeleteBook {
+  deleteBook(id: 2)
 }

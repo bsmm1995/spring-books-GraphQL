@@ -13,5 +13,5 @@ public class Author {
     private Integer id;
     private String firstName;
     private String lastName;
-    List<Book> books;
+    List<BookAuthor> books;
 }

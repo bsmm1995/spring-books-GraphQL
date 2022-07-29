@@ -8,15 +8,15 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "author")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorEntity {
     @Id
-    @Column(name = "ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "GEN")
+    @Column(name = "ID", nullable = false, unique = true)
     private Integer id;
     private String firstName;
     private String lastName;

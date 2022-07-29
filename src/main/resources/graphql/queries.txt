@@ -1,0 +1,83 @@
+#Get all books
+query {
+  allBooks {
+    title
+    pages
+    rating {
+      star
+    }
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+
+#Get book by ID
+query {
+  findOne(id: 1) {
+    title
+    pages
+    rating {
+      star
+    }
+    author {
+      firstName
+      lastName
+    }
+  }
+}
+
+#Get all Authors
+query {
+  allAuthors {
+    id
+    firstName
+    lastName
+    books{
+      id
+      title
+      pages
+      rating{
+        rating
+        star
+      }
+    }
+  }
+}
+
+#Get Author by ID
+query {
+  findAuthor(id: 1) {
+    id
+    firstName
+    lastName
+    books{
+      id
+      title
+      pages
+      rating{
+        rating
+        star
+      }
+    }
+  }
+}
+
+#Get Author by name
+query {
+  findAuthor(id: 1) {
+    id
+    firstName
+    lastName
+    books{
+      id
+      title
+      pages
+      rating{
+        rating
+        star
+      }
+    }
+  }
+}
